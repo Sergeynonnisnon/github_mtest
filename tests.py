@@ -32,9 +32,9 @@ class tests_suite_github(object):
     def __init__(self):
         self.rnd = rnd()
 
-
-        self.test_case5_1()
-        self.test_case5_2()
+        self.test_case1()
+        # self.test_case5_1()
+        # self.test_case5_2()
 
     def test_case1(self):
 
@@ -58,44 +58,59 @@ class tests_suite_github(object):
         self.paswd = self.driver.find_element_by_id('user_password')
         self.paswd.click()
         self.paswd.send_keys(self.rnd.random_pwd())
-        """self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[1]/h1').click()
+
+
+        self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[1]/h1').click()
         action = ActionChains(driver=self.driver)
-        elem = self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[2]/div/form/div[1]/h2')
+        elem = self.driver.find_element_by_xpath("/html/body/div[4]/main/div/div[2]/div/form/div[1]")
         elem.click()
         action.key_up(Keys.ARROW_DOWN)
+
         action.perform()
-        action.move_to_element(elem)"""
-        if len(self.driver.find_elements(By.XPATH, '//*[@id="home"]')) > 0:
-           print('exist')
-        self.driver.quit()
-        print ('test_case2 done')
+        action.move_to_element(elem)
+        self.driver.implicitly_wait(5)
+        assert len(self.driver.find_elements(By.XPATH,
+                                             "/html/body/div[4]/main/div/div[2]/div/form/div[1]")) < 1,\
+                                             "Error verification dont exist"
+        #assert len(self.driver.find_elements(By.ID,
+        #                                     "/html/body/div[4]/main/div/div[2]/div/form/div[1]")) < 1,\
+        #                                     "Error verification dont exist"
+        assert len(self.driver.find_elements(By.XPATH, "/html/body/div[4]/main/div/div[2]/div/form/div[2]")) < 2, "Error" \
+                                                                           "Button registration " \
+                                                                           "dont exist"
+        #self.driver.quit()
+        print('test_case1 done')
+
     def test_case5_1(self):
         self.driver = webdriver.Firefox()
         self.driver.get('https://github.com')
         action = ActionChains(driver=self.driver)
-        elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/summary')
+        elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]'
+                                                 '/nav/ul/li[1]/details/summary')
         action.move_to_element(to_element=elem)
         action.perform()
-        if len (self.driver.find_elements_by_xpath('/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a'))>0:
-            print ("test_case2 done")
+        if len(self.driver.find_elements_by_xpath(
+                '/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a')) > 0:
+            print("test_case2 done")
         else:
-            print ('not find features')
+            print('not find features')
         self.driver.quit()
 
     def test_case5_2(self):
         self.driver = webdriver.Firefox()
         self.driver.get('https://github.com')
         action = ActionChains(driver=self.driver)
-        elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/summary')
+        elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav'
+                                                 '/ul/li[1]/details/summary')
         action.move_to_element(to_element=elem)
         action.perform()
-        if len (self.driver.find_elements_by_xpath('/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/ul[1]/li[1]/a'))>0:
-            print ("test_case3 done")
+        if len(self.driver.find_elements_by_xpath(
+                '/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/detail'
+                's/div/ul[1]/li[1]/a')) > 0:
+            print("test_case3 done")
         else:
-            print ('not find code rewiew')
+            print('not find code rewiew')
         self.driver.quit()
-
-
 
 
 tests_suite_github()
