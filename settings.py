@@ -5,12 +5,9 @@ import string
 
 
 class rnd_registration(object):
-    def __init__(self, URL):
-        self.url = URL
-        self.random_name()
-        self.random_pwd()
-        # self.random_mail_name()
-        self.start_web_driver()
+    def __init__(self):
+        pass
+
 
     def random_mail_name(self):
         """
@@ -31,15 +28,19 @@ class rnd_registration(object):
         return self._mail_name + self._hosting_name + self._hosting_loc
 
     def random_name(self):
-        self.rnd_name_reg = random.choice(string.ascii_lowercase + string.ascii_uppercase)
-        for _ in range(random.randrange(0, 15)):
+        """
+        create a rand name
+        :return: str
+        """
+        self.rnd_name_reg =random.choice(string.ascii_lowercase + string.ascii_uppercase)
+        for _ in range(random.randrange(4, 15)):
             self.rnd_name_reg += str(random.choice(string.ascii_lowercase + string.ascii_uppercase + '_'))
-        return self.rnd_name_reg
+        return str (self.rnd_name_reg)
 
     def random_pwd(self):
         self._rnd_pwd = random.choice(string.ascii_lowercase + string.ascii_uppercase
                                       + string.digits + '!@#$^&*()_+{}?><|')
-        for _ in range(random.randrange(0, 15)):
+        for _ in range(random.randrange(8, 20)):
             self._rnd_pwd += random.choice(string.ascii_lowercase + string.ascii_uppercase
                                            + string.digits + '!@#$^&*()_+{}?><|')
         return self._rnd_pwd
@@ -50,7 +51,7 @@ class rnd_registration(object):
 
 
 
-rnd_registration(URL='https://github.com')
+#rnd_registration(URL='https://github.com')
 
 # if __name__=='main':
 #    main()
