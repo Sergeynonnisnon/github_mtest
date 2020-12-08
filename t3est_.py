@@ -33,6 +33,10 @@ class tests_suite_github(object):
         self.test_case5_1()
         self.test_case5_2()
 
+    def setup_method(self):
+        self.driver = webdriver.Firefox()
+        self.driver.get('https://github.com')
+
     def test_case1(self):
 
         """
@@ -40,8 +44,7 @@ class tests_suite_github(object):
 верифай йор акк
         :return: None
         """
-        self.driver = webdriver.Firefox()
-        self.driver.get('https://github.com')
+        self.setup_method()
         #print (self.driver.window_handles())
         self.driver.find_element(By.XPATH, '/html/body/div[1]/header/div/div[2]/div[2]/a[2]').click()
 
@@ -77,8 +80,7 @@ class tests_suite_github(object):
         print('test_case1 done')
 
     def test_case5_1(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get('https://github.com')
+        self.setup_method()
         action = ActionChains(driver=self.driver)
         elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]'
                                                  '/nav/ul/li[1]/details/summary')
@@ -90,8 +92,7 @@ class tests_suite_github(object):
         self.driver.quit()
 
     def test_case5_2(self):
-        self.driver = webdriver.Firefox()
-        self.driver.get('https://github.com')
+        self.setup_method()
         action = ActionChains(driver=self.driver)
         elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav'
                                                  '/ul/li[1]/details/summary')
