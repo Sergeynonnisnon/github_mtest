@@ -69,16 +69,13 @@ class tests_suite_github(object):
         action.perform()
         action.move_to_element(elem)
         self.driver.implicitly_wait(5)
-        assert len(self.driver.find_elements(By.XPATH,
-                                             "/html/body/div[4]/main/div/div[2]/div/form/div[1]")) < 1,\
-                                             "Error verification dont exist"
-        #assert len(self.driver.find_elements(By.ID,
-        #                                     "/html/body/div[4]/main/div/div[2]/div/form/div[1]")) < 1,\
-        #                                     "Error verification dont exist"
-        assert len(self.driver.find_elements(By.XPATH, "/html/body/div[4]/main/div/div[2]/div/form/div[2]")) < 2, "Error" \
-                                                                           "Button registration " \
-                                                                           "dont exist"
-        #self.driver.quit()
+        self.varification_test = len(self.driver.find_elements(By.XPATH,
+                                                               "/html/body/div[4]/main/div/div[2]/div/form/div[1]"))
+        self.btn_test = len(self.driver.find_elements(By.XPATH,
+                                                      "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
+        assert self.varification == 1,"Error verification dont exist"
+        assert self.btn_test == 1, "Error Button registration dont exist"
+        self.driver.quit()
         print('test_case1 done')
 
     def test_case5_1(self):
@@ -89,11 +86,9 @@ class tests_suite_github(object):
                                                  '/nav/ul/li[1]/details/summary')
         action.move_to_element(to_element=elem)
         action.perform()
-        if len(self.driver.find_elements_by_xpath(
-                '/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a')) > 0:
-            print("test_case2 done")
-        else:
-            print('not find features')
+        assert len(self.driver.find_elements_by_xpath
+                   ('/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a')) == 1, 'not find features'
+        print('test_case5_1 done')
         self.driver.quit()
 
     def test_case5_2(self):
