@@ -1,9 +1,6 @@
-import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 from settings import rnd_registration as rnd
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -33,8 +30,8 @@ class tests_suite_github(object):
         self.rnd = rnd()
 
         self.test_case1()
-        # self.test_case5_1()
-        # self.test_case5_2()
+        self.test_case5_1()
+        self.test_case5_2()
 
     def test_case1(self):
 
@@ -45,6 +42,7 @@ class tests_suite_github(object):
         """
         self.driver = webdriver.Firefox()
         self.driver.get('https://github.com')
+        #print (self.driver.window_handles())
         self.driver.find_element(By.XPATH, '/html/body/div[1]/header/div/div[2]/div[2]/a[2]').click()
 
         self.username = self.driver.find_element_by_id('user_login')
@@ -73,7 +71,7 @@ class tests_suite_github(object):
                                                                "/html/body/div[4]/main/div/div[2]/div/form/div[1]"))
         self.btn_test = len(self.driver.find_elements(By.XPATH,
                                                       "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
-        assert self.varification == 1,"Error verification dont exist"
+        assert self.varification_test == 1,"Error verification dont exist"
         assert self.btn_test == 1, "Error Button registration dont exist"
         self.driver.quit()
         print('test_case1 done')
