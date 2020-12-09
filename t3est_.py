@@ -29,13 +29,15 @@ class tests_suite_github(object):
     def __init__(self):
         self.rnd = rnd()
 
-        self.test_case_1_1()
+        #self.test_case_1_1()
         #self.test_case5_1()
         #self.test_case5_2()
+        self.test_case_6()
 
     def setup_method(self):
         self.driver = webdriver.Firefox()
         self.driver.get('https://github.com')
+
     def case1_setup(self):
         self.username = self.driver.find_element_by_id('user_login')
         self.username.click()
@@ -48,6 +50,7 @@ class tests_suite_github(object):
         self.paswd = self.driver.find_element_by_id('user_password')
         self.paswd.click()
         self.paswd.send_keys(self.rnd.random_pwd())
+
     def test_case1(self):
 
         """
@@ -97,6 +100,7 @@ class tests_suite_github(object):
         else:
             print('not find code rewiew')
         self.driver.quit()
+
     def test_case_1_1(self):
         self.setup_method()
         self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[2]/div[4]/div[4]/div/div/div[1]/a[1]').click()
@@ -104,6 +108,32 @@ class tests_suite_github(object):
         self.btn_test = len(self.driver.find_elements(By.XPATH,
                                                       "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
         assert self.btn_test == 1, "Error Button registration dont exist"
+    def test_case_6(self):
+        """
+        зайти в прайсинг планс жми на джойн фри и заполнить данными (рандомными
+        :return:
+        """
+        self.setup_method()
+        self.driver.implicitly_wait(5)
+        action = ActionChains(driver=self.driver)
+        elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav/ul')
+        action.move_to_element(to_element=elem)
+        action.perform()
+        elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav/ul/li[6]/details/summary')
+        action.move_to_element(to_element=elem)
+        action.perform()
+        self.driver.find_element_by_xpath('/html/body/div[1]/header/div/'
+                                          'div[2]/nav/ul/li[6]/details/div/ul[1]/li[1]/a').click()
+        #self.driver.implicitly_wait(5)
+        elem = self.driver.find_element_by_xpath('/html/body/div[4]/main/div[1]/div[4]/div/div[1]/div[2]/a')
+        action.move_to_element(to_element=elem)
+        elem.click()
+        self.case1_setup()
+        assert len(self.driver.find_elements_by_id('all_emails'))==1, 'button \'Send me occasional product updates, announcements, and offers\' dont exist '
+        self.driver.find_element_by_id('all_emails').click()
+
+
+
 
 
 tests_suite_github()
