@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from settings import rnd_registration as rnd
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 """
@@ -28,25 +29,14 @@ class tests_suite_github(object):
     def __init__(self):
         self.rnd = rnd()
 
-        self.test_case1()
+        self.test_case_1_1()
         #self.test_case5_1()
         #self.test_case5_2()
 
     def setup_method(self):
         self.driver = webdriver.Firefox()
         self.driver.get('https://github.com')
-
-    def test_case1(self):
-
-        """
-         провести регистрацию через верхний сингин - проверить что перешли на след страницу и что существует
-верифай йор акк
-        :return: None
-        """
-        self.setup_method()
-        #print (self.driver.window_handles())
-        self.driver.find_element(By.XPATH, '/html/body/div[1]/header/div/div[2]/div[2]/a[2]').click()
-
+    def case1_setup(self):
         self.username = self.driver.find_element_by_id('user_login')
         self.username.click()
         self.username.send_keys(self.rnd.random_name())
@@ -58,16 +48,28 @@ class tests_suite_github(object):
         self.paswd = self.driver.find_element_by_id('user_password')
         self.paswd.click()
         self.paswd.send_keys(self.rnd.random_pwd())
+    def test_case1(self):
 
-        self.driver.implicitly_wait(5)
+        """
+         провести регистрацию через верхний сингин - проверить что перешли на след страницу и что существует
+верифай йор акк
+        :return: None
+        """
+        self.setup_method()
+
+
+        self.driver.find_element(By.XPATH, '/html/body/div[1]/header/div/div[2]/div[2]/a[2]').click()
+        self.case1_setup()
+
+
+
         self.varification_test = len(self.driver.find_elements(By.XPATH,
-                                                              "//a[@id=\"home_children_button\"]"))
-        self.btn_test = len(self.driver.find_elements(By.XPATH,
-                                                      "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
-        assert self.varification_test == 1,"Error verification dont exist"
-        assert self.btn_test == 1, "Error Button registration dont exist"
-        self.driver.quit()
+                                                               "/html/body/div[4]/main/div/div[2]/div/form/div[1]"))
 
+        assert self.varification_test == 1,"Error verification dont exist"
+
+        #self.driver.quit()
+        print('test_case1 done')
 
     def test_case5_1(self):
         self.setup_method()
@@ -95,6 +97,13 @@ class tests_suite_github(object):
         else:
             print('not find code rewiew')
         self.driver.quit()
+    def test_case_1_1(self):
+        self.setup_method()
+        self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[2]/div[4]/div[4]/div/div/div[1]/a[1]').click()
+        self.case1_setup()
+        self.btn_test = len(self.driver.find_elements(By.XPATH,
+                                                      "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
+        assert self.btn_test == 1, "Error Button registration dont exist"
 
 
 tests_suite_github()
