@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from settings import rnd_registration as rnd
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 """
@@ -30,8 +29,8 @@ class tests_suite_github(object):
         self.rnd = rnd()
 
         self.test_case1()
-        self.test_case5_1()
-        self.test_case5_2()
+        #self.test_case5_1()
+        #self.test_case5_2()
 
     def setup_method(self):
         self.driver = webdriver.Firefox()
@@ -60,24 +59,15 @@ class tests_suite_github(object):
         self.paswd.click()
         self.paswd.send_keys(self.rnd.random_pwd())
 
-
-        self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[1]/h1').click()
-        action = ActionChains(driver=self.driver)
-        elem = self.driver.find_element_by_xpath("/html/body/div[4]/main/div/div[2]/div/form/div[1]")
-        elem.click()
-        action.key_up(Keys.ARROW_DOWN)
-
-        action.perform()
-        action.move_to_element(elem)
         self.driver.implicitly_wait(5)
         self.varification_test = len(self.driver.find_elements(By.XPATH,
-                                                               "/html/body/div[4]/main/div/div[2]/div/form/div[1]"))
+                                                              "//a[@id=\"home_children_button\"]"))
         self.btn_test = len(self.driver.find_elements(By.XPATH,
                                                       "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
         assert self.varification_test == 1,"Error verification dont exist"
         assert self.btn_test == 1, "Error Button registration dont exist"
         self.driver.quit()
-        print('test_case1 done')
+
 
     def test_case5_1(self):
         self.setup_method()
