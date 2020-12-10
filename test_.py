@@ -24,14 +24,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 """
 
 
-class tests_suite_github(object):
+class tests_suite_github(pytest):
 
     def __init__(self):
         self.rnd = rnd()
 
-        #self.test_case_1_1()
-        #self.test_case5_1()
-        #self.test_case5_2()
+        self.test_case_1_1()
+        self.test_case1()
+        self.test_case5_1()
+        self.test_case5_2()
         self.test_case_6()
 
     def setup_method(self):
@@ -71,10 +72,14 @@ class tests_suite_github(object):
 
         assert self.varification_test == 1,"Error verification dont exist"
 
-        #self.driver.quit()
+        self.driver.quit()
         print('test_case1 done')
 
     def test_case5_1(self):
+        """
+        check  element on github
+        :return: None
+        """
         self.setup_method()
         action = ActionChains(driver=self.driver)
         elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]'
@@ -87,6 +92,10 @@ class tests_suite_github(object):
         self.driver.quit()
 
     def test_case5_2(self):
+        """
+        check  element on github
+        :return: None
+        """
         self.setup_method()
         action = ActionChains(driver=self.driver)
         elem = self.driver.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/nav'
@@ -102,16 +111,21 @@ class tests_suite_github(object):
         self.driver.quit()
 
     def test_case_1_1(self):
+        """
+        check  element btn registration
+        :return: None
+        """
         self.setup_method()
         self.driver.find_element_by_xpath('/html/body/div[4]/main/div/div[2]/div[4]/div[4]/div/div/div[1]/a[1]').click()
         self.case1_setup()
         self.btn_test = len(self.driver.find_elements(By.XPATH,
                                                       "/html/body/div[4]/main/div/div[2]/div/form/div[2]"))
         assert self.btn_test == 1, "Error Button registration dont exist"
+        self.driver.quit()
     def test_case_6(self):
         """
-        зайти в прайсинг планс жми на джойн фри и заполнить данными (рандомными
-        :return:
+        check way to registration in prasing
+        :return:None
         """
         self.setup_method()
         self.driver.implicitly_wait(5)
@@ -131,6 +145,7 @@ class tests_suite_github(object):
         self.case1_setup()
         assert len(self.driver.find_elements_by_id('all_emails'))==1, 'button \'Send me occasional product updates, announcements, and offers\' dont exist '
         self.driver.find_element_by_id('all_emails').click()
+        self.driver.quit()
 
 
 
